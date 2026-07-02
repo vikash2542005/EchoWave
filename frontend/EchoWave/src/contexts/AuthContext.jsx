@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const request = await client.post('/users/login', { username, password });
             if (request.status === 200) {
-                localStorage.setItem('token', JSON.stringify(request.data));
+                localStorage.setItem('token', request.data.token);
                 setUserData(request.data);
                 return request.data.message || 'Login successful';
             }
@@ -54,12 +54,12 @@ export const AuthProvider = ({ children }) => {
 
  const getHistoryOfUser = async() => {
     try{
-            let request = await client.get("/get_all_activities", {
+            let request = await client.get("/users/get_all_activities", {
                 params : {
                     token : localStorage.getItem("token")
                 }
             });
-            return req.data
+            return request.data;
 
     }catch(e){
         throw new Error(e?.response?.data?.message || 'Failed to fetch user history');
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
 
 const addToUserHistory = async(meeting_id) => {
     try{
-        let request = await client.post("/add_activity", {
+        let request = await client.post("/users/add_activity", {
             token : localStorage.getItem("token"),
             meeting_id : meeting_id
         });
