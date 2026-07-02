@@ -3,8 +3,10 @@ import styles from "./videoCompStyle.module.css";
 import { TextField, Button, IconButton } from "@mui/material";
 import { Videocam, VideocamOff, Mic, MicOff, CallEnd, ScreenShare, Chat, Send } from "@mui/icons-material";
 import { io } from "socket.io-client";
+import server from "../../environment";
 
-const serverUrl = "http://localhost:3001";
+
+const serverUrl = server;
 
 const VideoComponent = () => {
   var socketRef = useRef();
