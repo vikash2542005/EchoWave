@@ -56,7 +56,23 @@ const io = connectToSocket(server,{
 app.set("port", process.env.PORT || 3001);
 
 // middlewares
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://echowavefrontend-j0yz.onrender.com',
+];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        // Allow requests with no origin (mobile apps, curl, etc.)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(null, true);
+        }
+    },
+    credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -69,6 +85,3 @@ app.get('/', (req, res) => {
 
 // Connect to MongoDB and start server
 connectDB();
-
-
-
