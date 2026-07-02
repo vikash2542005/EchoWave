@@ -12,6 +12,7 @@ import { Snackbar } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import server from "../environment";
 
 const theme = createTheme();
 
@@ -44,8 +45,8 @@ const Authantication = () => {
 
     try {
       const url = isLogin
-        ? "http://localhost:3001/api/users/login"
-        : "http://localhost:3001/api/users/signup";
+        ? `${server}/api/users/login`
+        : `${server}/api/users/signup`;
 
       const body = isLogin
         ? { username, password }
