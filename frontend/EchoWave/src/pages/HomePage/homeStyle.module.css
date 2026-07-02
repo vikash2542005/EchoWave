@@ -1,0 +1,220 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4vw;
+    background: rgba(30, 60, 114, 0.8);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    position: relative;
+    z-index: 10;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.navRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.historyText {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.logoutBtn {
+    padding: 8px 16px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.logoutBtn:hover {
+    background-color: #333;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    gap: 20px;
+    padding: 20px;
+}
+
+.mainTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.meetingInput {
+    width: 100%;
+    max-width: 320px;
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+.meetingInput:focus {
+    border-color: teal;
+    box-shadow: 0 0 4px rgba(0, 128, 128, 0.3);
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 10px;
+}
+
+.joinBtn,
+.historyViewBtn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: teal;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.joinBtn:hover,
+.historyViewBtn:hover {
+    background-color: #006666;
+}
+
+.errorText {
+    color: crimson;
+    font-size: 14px;
+    margin: 0;
+}
+
+.historyContainer {
+    width: 100%;
+    max-width: 420px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fefefe;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.historyTitle {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+.historyList {
+    padding-left: 20px;
+    margin: 0;
+    list-style-position: inside;
+}
+
+.historyItem {
+    margin-bottom: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.historyItem:last-child {
+    border-bottom: none;
+}
+
+.historyItemCode {
+    font-weight: 600;
+    color: white;
+}
+
+.historyItemDate {
+    font-size: 0.85rem;
+    color: white;
+    margin-top: 4px;
+}
+
+.noHistoryText {
+    font-size: 14px;
+    color: white;
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 8px 12px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .navRight {
+        gap: 2px;
+    }
+
+    .logoutBtn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .mainContainer {
+        padding: 12px;
+        gap: 16px;
+        min-height: 70vh;
+    }
+
+    .mainTitle {
+        font-size: 20px;
+    }
+
+    .meetingInput {
+        max-width: 100%;
+    }
+
+    .buttonGroup {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .joinBtn,
+    .historyViewBtn {
+        width: 100%;
+    }
+
+    .historyContainer {
+        max-width: 100%;
+    }
+}

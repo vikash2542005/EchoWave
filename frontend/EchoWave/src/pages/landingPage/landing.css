@@ -1,0 +1,349 @@
+/* Classic dark navbar styles */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&display=swap');
+
+.landingContainer{
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1698825810702-10bb885eec26?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+.landingContainer nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4vw;
+    background: transparent;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    position: relative;
+    z-index: 10;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.landingContainer nav .logo{
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, #FFD700, #FFA500, white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 0 4px 16px rgba(255, 215, 0, 0.5);
+    letter-spacing: 2px;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.landingContainer nav .logo h1 {
+    margin: 0;
+}
+
+.landingContainer nav .navButtons{
+    display: flex;
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.landingContainer nav .navButtons p {
+    padding: clamp(0.6rem, 2vw, 0.9rem) clamp(1.2rem, 3vw, 2.2rem);
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #1a1a1a, #333);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.landingContainer nav .navButtons p:hover {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    border-color: rgba(255, 215, 0, 0.8);
+}
+
+.landingContainer nav .navButtons button:active {
+    transform: translateY(0);
+}
+
+/* Main Section Styles */
+.landingMain {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 5vw, 5%);
+    min-height: calc(100vh - 140px);
+    gap: clamp(1.5rem, 5vw, 4rem);
+    flex-wrap: wrap;
+}
+
+.landingText {
+    flex: 1;
+    min-width: 280px;
+    max-width: 550px;
+    color: white;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 0.2s forwards;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    line-height: 1.6;
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 0.4s forwards;
+}
+
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.8rem, 2vw, 1rem);
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.8rem, 2vw, 1rem);
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.feature:nth-child(1) { animation-delay: 0.6s; }
+.feature:nth-child(2) { animation-delay: 0.7s; }
+.feature:nth-child(3) { animation-delay: 0.8s; }
+
+.feature-icon {
+    font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+    width: clamp(35px, 8vw, 45px);
+    height: clamp(35px, 8vw, 45px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.cta-button {
+    padding: clamp(1rem, 3vw, 1.3rem) clamp(2rem, 5vw, 3.2rem);
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    border: none;
+    text-decoration: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 1s forwards;
+    white-space: nowrap;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(255, 215, 0, 0.6);
+}
+
+.cta-button:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.landingImage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 280px;
+    max-width: min(90vw, 450px);
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    max-width: min(90vw, 450px);
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 215, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.5s ease;
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    animation: fadeInScale 1.2s ease-out 0.5s forwards;
+}
+
+.image-container:hover img {
+    transform: scale(1.05);
+    box-shadow: 
+        0 40px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 215, 0, 0.4);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 1024px) {
+    .landingMain {
+        max-width: 1000px;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .landingContainer nav {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem 3vw;
+    }
+    
+    .landingContainer nav .navButtons {
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .landingMain {
+        flex-direction: column;
+        text-align: center;
+        padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 5vw, 3vw);
+        min-height: auto;
+        gap: clamp(1.5rem, 5vw, 2.5rem);
+    }
+
+    .landingText {
+        max-width: 100%;
+        order: 2;
+    }
+
+    .landingImage {
+        order: 1;
+        max-width: 90vw;
+    }
+
+    .image-container {
+        max-width: 85vw;
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .landingContainer nav .navButtons {
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: stretch;
+    }
+
+    .landingContainer nav .navButtons button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .landingMain {
+        padding: 1rem 2vw;
+        gap: 1.5rem;
+    }
+
+    .features {
+        gap: 0.7rem;
+    }
+
+    .feature {
+        justify-content: center;
+        gap: 0.7rem;
+        font-size: 0.95rem;
+    }
+
+    .cta-button {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+}
