@@ -24,7 +24,12 @@ const Home = () => {
             return;
         }
 
-        await addToUserHistory(trimmedCode);
+        try {
+            await addToUserHistory(trimmedCode);
+        } catch (error) {
+            console.error('Could not save meeting history:', error.message || error);
+        }
+
         navigate(`/${trimmedCode}`);
     }
 

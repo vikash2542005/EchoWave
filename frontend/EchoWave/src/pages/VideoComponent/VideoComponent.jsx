@@ -89,10 +89,8 @@ const VideoComponent = () => {
       console.error("Error occurred in getUserMediaSuccess:", err);
     }
 
-    window.localStream = stream;
+    setLocalStream(stream);
     cameraStreamRef.current = stream;
-    outgoingStreamRef.current = stream;
-    localVideoref.current.srcObject = stream;
 
     for (let id in connectionsRef.current) {
       if (id === socketIdRef.current) continue;
@@ -217,6 +215,14 @@ const VideoComponent = () => {
     return localStream;
   };
 
+  const setLocalStream = (stream) => {
+    window.localStream = stream;
+    outgoingStreamRef.current = stream;
+    if (localVideoref.current) {
+      localVideoref.current.srcObject = stream;
+    }
+  };
+
   const stopDisplayStream = () => {
     if (!displayStreamRef.current) return;
     displayStreamRef.current.getTracks().forEach((track) => track.stop());
@@ -226,10 +232,10 @@ const VideoComponent = () => {
   const replaceVideoTrackOnPeers = async (newTrack, stream = outgoingStreamRef.current || window.localStream || getLocalStream()) => {
     const peerPromises = Object.entries(connectionsRef.current).map(async ([peerId, pc], idx) => {
       try {
-        const sender = pc.getSenders().find((s) => s.track && s.track.kind === "video");
-        if (sender && newTrack) {
-          await sender.replaceTrack(newTrack);
-          console.log("screen-share: replaced track on peer", idx, newTrack.id);
+        const videoSenders = pc.getSenders().filter((s) => s.track && s.track.kind === "video");
+        if (videoSenders.length > 0 && newTrack) {
+          await Promise.all(videoSenders.map((sender) => sender.replaceTrack(newTrack)));
+          console.log("screen-share: replaced video track on peer", idx, newTrack.id);
         } else if (newTrack) {
           pc.addTrack(newTrack, stream);
           console.log("screen-share: added new video track on peer", idx, newTrack.id);
@@ -514,20 +520,26 @@ const VideoComponent = () => {
         stopDisplayStream();
 
         const cam = cameraStreamRef.current;
-        if (cam) {
-          const camVideoTrack = cam.getVideoTracks()[0];
-          const camAudioTrack = cam.getAudioTracks()[0];
+        const camVideoTrack = cam?.getVideoTracks()[0];
+        const camAudioTrack = cam?.getAudioTracks()[0];
+        if (camVideoTrack || camAudioTrack) {
           const restoredStream = new MediaStream();
-
           if (camVideoTrack) restoredStream.addTrack(camVideoTrack);
           if (camAudioTrack) restoredStream.addTrack(camAudioTrack);
 
-          window.localStream = restoredStream;
-          outgoingStreamRef.current = restoredStream;
-          if (localVideoref.current) localVideoref.current.srcObject = restoredStream;
+          setLocalStream(restoredStream);
 
           if (camVideoTrack) {
             await replaceVideoTrackOnPeers(camVideoTrack, restoredStream);
+            await renegotiateAllPeers();
+          }
+        } else {
+          const backupVideoTrack = outgoingStreamRef.current?.getVideoTracks()[0];
+          if (backupVideoTrack) {
+            const restoredStream = new MediaStream();
+            restoredStream.addTrack(backupVideoTrack);
+            setLocalStream(restoredStream);
+            await replaceVideoTrackOnPeers(backupVideoTrack, restoredStream);
             await renegotiateAllPeers();
           }
         }
@@ -537,6 +549,11 @@ const VideoComponent = () => {
 
       if (screen) {
         await stopScreenShare();
+        return;
+      }
+
+      if (!screenAvailable) {
+        console.warn("Screen sharing is not supported in this browser.");
         return;
       }
 
@@ -551,12 +568,9 @@ const VideoComponent = () => {
         outgoingStream.addTrack(displayVideo);
         if (audioTrack) outgoingStream.addTrack(audioTrack);
 
-        window.localStream = outgoingStream;
-        outgoingStreamRef.current = outgoingStream;
+        setLocalStream(outgoingStream);
         await replaceVideoTrackOnPeers(displayVideo, outgoingStream);
         await renegotiateAllPeers();
-
-        if (localVideoref.current) localVideoref.current.srcObject = outgoingStream;
 
         displayVideo.onended = async () => {
           await stopScreenShare();
@@ -656,6 +670,7 @@ const VideoComponent = () => {
 
                 <div className={styles.chatComposer}>
                   <TextField
+                    style={{ backgroundColor: "blue" }}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Type a message"
@@ -669,7 +684,7 @@ const VideoComponent = () => {
                       }
                     }}
                   />
-                  <IconButton onClick={handleSendMessage} className={styles.sendButton} title="Send message">
+                  <IconButton onClick={handleSendMessage} className={styles.sendButton} style={{color : "white"}} title="Send message">
                     <Send />
                   </IconButton>
                 </div>
